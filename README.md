@@ -1,4 +1,5 @@
 
+
 # NASA Engine RUL - MLOps & DataOps Pipeline
 
 Ce projet implémente une architecture complète DataOps et MLOps pour la prédiction de la durée de vie utile restante (RUL - Remaining Useful Life) de moteurs turbofan de la NASA. 
@@ -57,4 +58,4 @@ streamlit run dashboard\app.py
 * **`dashboard/`** : L'interface utilisateur de supervision construite avec Streamlit.
 * **`engine_rul/feature_repo/`** : Configuration du Feature Store Feast.
 * **`dataset/`** : Les fichiers CSV contenant les données brutes d'entraînement d'origine de la NASA.
->>>>>>> b790e79 (Initial commit - TwinSenseAI industrial machine learning project)
+
