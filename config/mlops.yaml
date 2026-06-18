@@ -1,0 +1,10 @@
+experiment_name: "RUL_Pipeline"
+model_name: "RUL_Model"
+drift_threshold: 1.2
+sequence_length: 30
+window_size: 5
+clip_limit: 125
+training:
+  epochs: 10
+  batch_size: 64
+  validation_split: 0.15

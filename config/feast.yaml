@@ -1,0 +1,9 @@
+project: "engine_rul"
+repo_path: "engine_rul/feature_repo"
+offline_store:
+  type: "postgres"
+  connection_string: "postgresql://postgres:postgres@localhost:5432/feature_store"
+  fallback_db: "data/offline_store.db"
+online_store:
+  type: "sqlite"
+  path: "engine_rul/feature_repo/data/online_store.db"

@@ -1,0 +1,10 @@
+data_lake:
+  bronze_dir: "data/bronze"
+  silver_dir: "data/silver"
+  gold_dir: "data/gold"
+  feature_store_dir: "data/feature_store"
+models:
+  primary_path: "pompe_model_lstm.keras"
+  backup_dir: "models/backup"
+logs:
+  dir: "logs"
