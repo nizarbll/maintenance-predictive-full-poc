@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TwinSense AI — Predictive Maintenance Platform</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Simple heat layer implementation -->
+  <script>
+    (function () {
+      L.HeatLayer = L.Layer.extend({
+        initialize: function (latlngs, options) {
+          this._latlngs = latlngs;
+          this._options = options || {};
+        },
+        onAdd: function (map) {
+          this._map = map;
+          this._canvas = this._createCanvas();
+          this._draw();
+          map.on('moveend zoomend', this._draw, this);
+        },
+        onRemove: function (map) {
+          map.getPanes().overlayPane.removeChild(this._canvas);
+          map.off('moveend zoomend', this._draw, this);
+        },
+        _createCanvas: function () {
+          var canvas = L.DomUtil.create('canvas', 'leaflet-heat-layer');
+          var size = this._map.getSize();
+          canvas.width = size.x;
+          canvas.height = size.y;
+          canvas.style.pointerEvents = 'none';
+          L.DomUtil.setPosition(canvas, new L.Point(0, 0));
+          this._map.getPanes().overlayPane.appendChild(canvas);
+          return canvas;
+        },
+        _draw: function () {
+          if (!this._canvas) return;
+          var ctx = this._canvas.getContext('2d');
+          var bounds = this._map.getBounds();
+          var size = this._map.getSize();
+          this._canvas.width = size.x;
+          this._canvas.height = size.y;
+          ctx.clearRect(0, 0, size.x, size.y);
+
+          var gradient = ctx.createRadialGradient(size.x / 2, size.y / 2, 0, size.x / 2, size.y / 2, size.x / 2);
+          gradient.addColorStop(0, 'rgba(255,0,0,0.8)');
+          gradient.addColorStop(0.4, 'rgba(255,255,0,0.5)');
+          gradient.addColorStop(1, 'rgba(0,0,255,0)');
+
+          this._latlngs.forEach(function (pt) {
+            var lat = pt[0], lng = pt[1], intensity = pt[2] || 1;
+            var point = this._map.latLngToContainerPoint([lat, lng]);
+            var radius = (this._options.radius || 30) * intensity;
+
+            ctx.beginPath();
+            ctx.arc(point.x, point.y, radius, 0, 2 * Math.PI);
+            ctx.fillStyle = gradient;
+            ctx.globalAlpha = intensity * 0.6;
+            ctx.fill();
+          }, this);
+        }
+      });
+
+      L.heatLayer = function (latlngs, options) {
+        return new L.HeatLayer(latlngs, options);
+      };
+    })();
+  </script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-logo">
+      <div class="loader-logo-hex"></div>
+      <div class="loader-name">TwinSense<span>AI</span></div>
+    </div>
+    <div class="loader-sub">Predictive Maintenance Platform</div>
+    <div class="loader-bar">
+      <div class="loader-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="app">
+    <!-- SIDEBAR - Only Map, Alerts, Analytics, Logs, Settings -->
+        <nav class="sidebar">
+      <div class="sidebar-logo" onclick="window.location.href='index.html'"></div>
+      <div class="sidebar-nav">
+        <div class="snav-item active" onclick="window.location.href='index.html'" title="Factory Map">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="3" width="7" height="7" rx="1.5" />
+            <rect x="14" y="3" width="7" height="7" rx="1.5" />
+            <rect x="3" y="14" width="7" height="7" rx="1.5" />
+            <rect x="14" y="14" width="7" height="7" rx="1.5" />
+          </svg>
+        </div>
+        <div class="snav-item " onclick="window.location.href='machines.html'" title="All Machines">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+          </svg>
+        </div>
+        <div class="snav-item " onclick="window.location.href='technicians.html'" title="Technicians">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+        </div>
+        <div class="snav-item " onclick="window.location.href='alerts.html'" title="Alerts" style="position:relative">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+          <div class="snav-badge"></div>
+        </div>
+        <div class="snav-item " onclick="window.location.href='analytics.html'" title="Analytics">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <line x1="18" y1="20" x2="18" y2="10" />
+            <line x1="12" y1="20" x2="12" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="14" />
+          </svg>
+        </div>
+        <div class="snav-item " onclick="window.location.href='logs.html'" title="Historical Logs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14,2 14,8 20,8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+            <line x1="10" y1="9" x2="8" y2="9" />
+          </svg>
+        </div>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="snav-item " onclick="window.location.href='settings.html'" title="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+        </div>
+        <div class="sidebar-avatar">AH</div>
+      </div>
+    </nav>
+
+    <!-- MAIN -->
+    <div class="main">
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <div class="topbar-brand">TwinSense<span>AI</span></div>
+        <div class="topbar-breadcrumb"><span class="cur">Factory Map</span></div>
+        <div class="topbar-spacer"></div>
+        <div class="topbar-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input placeholder="Search machines, zones…" />
+        </div>
+        <div class="topbar-actions">
+          <div class="topbar-status">
+            <div class="topbar-status-dot"></div>All Systems Live
+          </div>
+
+          <!-- Notifications Dropdown -->
+          <div class="dropdown-wrapper">
+            <div class="topbar-btn" onclick="toggleDropdown('notifDropdown')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+              </svg>
+              <div class="topbar-notif-dot"></div>
+            </div>
+            <div class="dropdown-menu" id="notifDropdown">
+              <div class="dropdown-header">
+                <span>Critical Alerts</span>
+                <span class="dropdown-badge">3 Actions Required</span>
+              </div>
+              <div class="dropdown-body">
+                <div class="notif-item" onclick="window.location.href='machine-details.html'">
+                  <div class="notif-icon" style="background:var(--red-dim);color:var(--red)">⚠️</div>
+                  <div class="notif-content">
+                    <div class="notif-title">FL-PUMP-03: Critical Temp Spike (142°C)</div>
+                    <div class="notif-meta">Zone 3 · Immediate Maintenance</div>
+                  </div>
+                </div>
+                <div class="notif-item" onclick="window.location.href='machine-details.html'">
+                  <div class="notif-icon" style="background:var(--red-dim);color:var(--red)">⚠️</div>
+                  <div class="notif-content">
+                    <div class="notif-title">CR-PUMP-07: RLU strictly below 15%</div>
+                    <div class="notif-meta">Zone 1 · Imminent Failure Risk</div>
+                  </div>
+                </div>
+                <div class="notif-item" onclick="window.location.href='machine-details.html'">
+                  <div class="notif-icon" style="background:var(--orange-dim);color:var(--orange)">⚙️</div>
+                  <div class="notif-content">
+                    <div class="notif-title">FT-MOTOR-02: Abnormal Vibration</div>
+                    <div class="notif-meta">Zone 2 · Needs Inspection</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Download Dropdown -->
+          <div class="dropdown-wrapper">
+            <div class="topbar-btn" onclick="toggleDropdown('downloadDropdown')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+            </div>
+            <div class="dropdown-menu" id="downloadDropdown">
+              <div class="dropdown-header">
+                <span>Download Machine Data</span>
+              </div>
+              <div class="dropdown-body">
+                <div class="dl-item" onclick="downloadFile('csv', 'telemetry_report.csv')">
+                  <svg class="dl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                  </svg>
+                  <div class="dl-info">
+                    <div class="dl-title">Sensor Telemetry Log</div>
+                    <div class="dl-desc">CSV format · Last 30 days</div>
+                  </div>
+                </div>
+                <div class="dl-item" onclick="downloadFile('pdf', 'ml_predictions_report.pdf')">
+                  <svg class="dl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <path d="M9 15v-6" />
+                    <path d="M12 15v-4" />
+                    <path d="M15 15v-2" />
+                  </svg>
+                  <div class="dl-info">
+                    <div class="dl-title">ML Predictions & RLU Report</div>
+                    <div class="dl-desc">PDF format · AI analysis</div>
+                  </div>
+                </div>
+                <div class="dl-item" onclick="downloadFile('xlsx', 'maintenance_history.xlsx')">
+                  <svg class="dl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <div class="dl-info">
+                    <div class="dl-title">Maintenance History</div>
+                    <div class="dl-desc">XLSX format · Full audit trail</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </header>
+
+      <!-- PAGE: MAP DASHBOARD -->
+      <div class="page active" id="page-map">
+        <div class="map-page-grid">
+          <!-- Real Map Container -->
+          <div class="map-container">
+            <div class="map-header">
+              <div>
+                <div class="map-title">OCP Jarf Lasfar — Real-time Factory Map</div>
+                <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Click on zones to view machines ·
+                  OpenStreetMap base</div>
+              </div>
+              <div class="map-controls">
+                <button class="map-ctrl-btn" onclick="setMapMode('live')">Live</button>
+                <button class="map-ctrl-btn" onclick="setMapMode('heatmap')">Heatmap</button>
+                <button class="map-ctrl-btn active" onclick="setMapMode('satellite')">Satellite</button>
+              </div>
+            </div>
+            <div id="map"></div>
+
+            <!-- Legend Overlay -->
+            <div class="map-legend-overlay">
+              <div class="legend-item legend-healthy">
+                <div class="legend-dot"></div>Healthy
+              </div>
+              <div class="legend-item legend-warning">
+                <div class="legend-dot"></div>Warning
+              </div>
+              <div class="legend-item legend-critical">
+                <div class="legend-dot"></div>Critical
+              </div>
+            </div>
+
+            <!-- Stats Overlay -->
+            <div class="map-stats-overlay">
+              <div class="map-stat-chip">
+                <div class="map-stat-val" style="color:var(--ocp-green)">38</div>
+                <div class="map-stat-lbl">Active</div>
+              </div>
+              <div class="map-stat-chip">
+                <div class="map-stat-val" style="color:var(--orange)">5</div>
+                <div class="map-stat-lbl">Warning</div>
+              </div>
+              <div class="map-stat-chip">
+                <div class="map-stat-val" style="color:var(--red)">2</div>
+                <div class="map-stat-lbl">Critical</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar Panels -->
+          <div class="sidebar-panels">
+            <!-- Most Critical RLU -->
+            <div class="panel-card">
+              <div class="panel-header">
+                <div class="panel-title">Most Critical RLU</div>
+                <span class="panel-badge badge-red">5 Critical</span>
+              </div>
+              <div class="panel-body">
+                <div class="rlu-list">
+                  <div class="rlu-item" onclick="window.location.href='machine-details.html'">
+                    <div class="rlu-rank">01</div>
+                    <div class="rlu-icon" style="background:var(--red-dim);color:var(--red);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="7,16 17,16 12,7" fill="currentColor" stroke="none"/></svg></div>
+                    <div class="rlu-info">
+                      <div class="rlu-name">FL-PUMP-03</div>
+                      <div class="rlu-zone">Zone 3 · Filtration</div>
+                    </div>
+                    <div class="rlu-bar-wrap">
+                      <div class="rlu-bar-bg">
+                        <div class="rlu-bar-fill" style="width:8%;background:var(--red)"></div>
+                      </div>
+                    </div>
+                    <div class="rlu-pct" style="color:var(--red)">8%</div>
+                  </div>
+                  <div class="rlu-item" onclick="window.location.href='machine-details.html'">
+                    <div class="rlu-rank">02</div>
+                    <div class="rlu-icon" style="background:var(--red-dim);color:var(--red);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="7,16 17,16 12,7" fill="currentColor" stroke="none"/></svg></div>
+                    <div class="rlu-info">
+                      <div class="rlu-name">CR-PUMP-07</div>
+                      <div class="rlu-zone">Zone 1 · Crushing</div>
+                    </div>
+                    <div class="rlu-bar-wrap">
+                      <div class="rlu-bar-bg">
+                        <div class="rlu-bar-fill" style="width:15%;background:var(--red)"></div>
+                      </div>
+                    </div>
+                    <div class="rlu-pct" style="color:var(--red)">15%</div>
+                  </div>
+                  <div class="rlu-item" onclick="window.location.href='machine-details.html'">
+                    <div class="rlu-rank">03</div>
+                    <div class="rlu-icon" style="background:var(--orange-dim);color:var(--orange);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><text x="12" y="16" text-anchor="middle" font-size="12" font-family="sans-serif" font-weight="bold" fill="currentColor" stroke="none">M</text></svg></div>
+                    <div class="rlu-info">
+                      <div class="rlu-name">FT-MOTOR-02</div>
+                      <div class="rlu-zone">Zone 2 · Flotation</div>
+                    </div>
+                    <div class="rlu-bar-wrap">
+                      <div class="rlu-bar-bg">
+                        <div class="rlu-bar-fill" style="width:22%;background:var(--orange)"></div>
+                      </div>
+                    </div>
+                    <div class="rlu-pct" style="color:var(--orange)">22%</div>
+                  </div>
+                  <div class="rlu-item" onclick="window.location.href='machine-details.html'">
+                    <div class="rlu-rank">04</div>
+                    <div class="rlu-icon" style="background:var(--orange-dim);color:var(--orange);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><text x="12" y="16" text-anchor="middle" font-size="12" font-family="sans-serif" font-weight="bold" fill="currentColor" stroke="none">M</text></svg></div>
+                    <div class="rlu-info">
+                      <div class="rlu-name">DR-MOTOR-11</div>
+                      <div class="rlu-zone">Zone 4 · Drying</div>
+                    </div>
+                    <div class="rlu-bar-wrap">
+                      <div class="rlu-bar-bg">
+                        <div class="rlu-bar-fill" style="width:31%;background:var(--orange)"></div>
+                      </div>
+                    </div>
+                    <div class="rlu-pct" style="color:var(--orange)">31%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live Alerts -->
+            <div class="panel-card">
+              <div class="panel-header">
+                <div class="panel-title">Live Alerts</div>
+                <span class="panel-badge badge-red">7 Active</span>
+              </div>
+              <div class="panel-body">
+                <div class="alert-item" onclick="window.location.href='alerts.html'">
+                  <div class="alert-dot" style="background:var(--red)"></div>
+                  <div class="alert-content">
+                    <div class="alert-title">FL-PUMP-03 — Critical temperature spike</div>
+                    <div class="alert-meta">Zone 3 · Filtration · 142°C</div>
+                  </div>
+                  <div class="alert-time">00:42</div>
+                </div>
+                <div class="alert-item" onclick="window.location.href='alerts.html'">
+                  <div class="alert-dot" style="background:var(--red)"></div>
+                  <div class="alert-content">
+                    <div class="alert-title">CR-PUMP-07 — RLU below 15%</div>
+                    <div class="alert-meta">Zone 1 · Immediate action</div>
+                  </div>
+                  <div class="alert-time">01:15</div>
+                </div>
+                <div class="alert-item" onclick="window.location.href='alerts.html'">
+                  <div class="alert-dot" style="background:var(--orange)"></div>
+                  <div class="alert-content">
+                    <div class="alert-title">FT-MOTOR-02 — Vibration anomaly</div>
+                    <div class="alert-meta">Zone 2 · 8.4mm/s</div>
+                  </div>
+                  <div class="alert-time">02:30</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
