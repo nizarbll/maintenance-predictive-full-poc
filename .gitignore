@@ -14,9 +14,6 @@ ENV/
 *.keras
 *.h5
 *.hdf5
-dataset/
-data/
-logs/
 
 # IDEs
 .idea/
