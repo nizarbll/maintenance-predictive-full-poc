@@ -190,22 +190,22 @@
                 <div class="notif-item" onclick="window.location.href='machine-details.html'">
                   <div class="notif-icon" style="background:var(--red-dim);color:var(--red)">⚠️</div>
                   <div class="notif-content">
-                    <div class="notif-title">FL-PUMP-03: Critical Temp Spike (142°C)</div>
-                    <div class="notif-meta">Zone 3 · Immediate Maintenance</div>
+                    <div class="notif-title">ENG_003: Critical Temp Spike (142 units)</div>
+                    <div class="notif-meta">Facility A · Immediate Maintenance</div>
                   </div>
                 </div>
                 <div class="notif-item" onclick="window.location.href='machine-details.html'">
                   <div class="notif-icon" style="background:var(--red-dim);color:var(--red)">⚠️</div>
                   <div class="notif-content">
-                    <div class="notif-title">CR-PUMP-07: RLU strictly below 15%</div>
-                    <div class="notif-meta">Zone 1 · Imminent Failure Risk</div>
+                    <div class="notif-title">ENG_007: RUL strictly below 15 cycles</div>
+                    <div class="notif-meta">Facility B · Imminent Failure Risk</div>
                   </div>
                 </div>
                 <div class="notif-item" onclick="window.location.href='machine-details.html'">
                   <div class="notif-icon" style="background:var(--orange-dim);color:var(--orange)">⚙️</div>
                   <div class="notif-content">
-                    <div class="notif-title">FT-MOTOR-02: Abnormal Vibration</div>
-                    <div class="notif-meta">Zone 2 · Needs Inspection</div>
+                    <div class="notif-title">ENG_002: Abnormal Sensor 15</div>
+                    <div class="notif-meta">Facility C · Needs Inspection</div>
                   </div>
                 </div>
               </div>
@@ -250,7 +250,7 @@
                     <path d="M15 15v-2" />
                   </svg>
                   <div class="dl-info">
-                    <div class="dl-title">ML Predictions & RLU Report</div>
+                    <div class="dl-title">ML Predictions & RUL Report</div>
                     <div class="dl-desc">PDF format · AI analysis</div>
                   </div>
                 </div>
@@ -280,7 +280,7 @@
           <div class="map-container">
             <div class="map-header">
               <div>
-                <div class="map-title">OCP Jarf Lasfar — Real-time Factory Map</div>
+                <div class="map-title">Kennedy Space Center — Real-time Factory Map</div>
                 <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Click on zones to view machines ·
                   OpenStreetMap base</div>
               </div>
@@ -324,69 +324,69 @@
 
           <!-- Sidebar Panels -->
           <div class="sidebar-panels">
-            <!-- Most Critical RLU -->
+            <!-- Most Critical RUL -->
             <div class="panel-card">
               <div class="panel-header">
-                <div class="panel-title">Most Critical RLU</div>
+                <div class="panel-title">Most Critical RUL</div>
                 <span class="panel-badge badge-red">5 Critical</span>
               </div>
               <div class="panel-body">
-                <div class="rlu-list">
-                  <div class="rlu-item" onclick="window.location.href='machine-details.html'">
-                    <div class="rlu-rank">01</div>
-                    <div class="rlu-icon" style="background:var(--red-dim);color:var(--red);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="7,16 17,16 12,7" fill="currentColor" stroke="none"/></svg></div>
-                    <div class="rlu-info">
-                      <div class="rlu-name">FL-PUMP-03</div>
-                      <div class="rlu-zone">Zone 3 · Filtration</div>
+                <div class="rul-list">
+                  <div class="rul-item" onclick="window.location.href='machine-details.html'">
+                    <div class="rul-rank">01</div>
+                    <div class="rul-icon" style="background:var(--red-dim);color:var(--red);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="7,16 17,16 12,7" fill="currentColor" stroke="none"/></svg></div>
+                    <div class="rul-info">
+                      <div class="rul-name">ENG_003</div>
+                      <div class="rul-zone">Test Facility Alpha</div>
                     </div>
-                    <div class="rlu-bar-wrap">
-                      <div class="rlu-bar-bg">
-                        <div class="rlu-bar-fill" style="width:8%;background:var(--red)"></div>
+                    <div class="rul-bar-wrap">
+                      <div class="rul-bar-bg">
+                        <div class="rul-bar-fill" style="width:8 cycles;background:var(--red)"></div>
                       </div>
                     </div>
-                    <div class="rlu-pct" style="color:var(--red)">8%</div>
+                    <div class="rul-pct" style="color:var(--red)">8 cycles</div>
                   </div>
-                  <div class="rlu-item" onclick="window.location.href='machine-details.html'">
-                    <div class="rlu-rank">02</div>
-                    <div class="rlu-icon" style="background:var(--red-dim);color:var(--red);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="7,16 17,16 12,7" fill="currentColor" stroke="none"/></svg></div>
-                    <div class="rlu-info">
-                      <div class="rlu-name">CR-PUMP-07</div>
-                      <div class="rlu-zone">Zone 1 · Crushing</div>
+                  <div class="rul-item" onclick="window.location.href='machine-details.html'">
+                    <div class="rul-rank">02</div>
+                    <div class="rul-icon" style="background:var(--red-dim);color:var(--red);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="7,16 17,16 12,7" fill="currentColor" stroke="none"/></svg></div>
+                    <div class="rul-info">
+                      <div class="rul-name">ENG_007</div>
+                      <div class="rul-zone">Test Facility Beta</div>
                     </div>
-                    <div class="rlu-bar-wrap">
-                      <div class="rlu-bar-bg">
-                        <div class="rlu-bar-fill" style="width:15%;background:var(--red)"></div>
+                    <div class="rul-bar-wrap">
+                      <div class="rul-bar-bg">
+                        <div class="rul-bar-fill" style="width:15 cycles;background:var(--red)"></div>
                       </div>
                     </div>
-                    <div class="rlu-pct" style="color:var(--red)">15%</div>
+                    <div class="rul-pct" style="color:var(--red)">15 cycles</div>
                   </div>
-                  <div class="rlu-item" onclick="window.location.href='machine-details.html'">
-                    <div class="rlu-rank">03</div>
-                    <div class="rlu-icon" style="background:var(--orange-dim);color:var(--orange);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><text x="12" y="16" text-anchor="middle" font-size="12" font-family="sans-serif" font-weight="bold" fill="currentColor" stroke="none">M</text></svg></div>
-                    <div class="rlu-info">
-                      <div class="rlu-name">FT-MOTOR-02</div>
-                      <div class="rlu-zone">Zone 2 · Flotation</div>
+                  <div class="rul-item" onclick="window.location.href='machine-details.html'">
+                    <div class="rul-rank">03</div>
+                    <div class="rul-icon" style="background:var(--orange-dim);color:var(--orange);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><text x="12" y="16" text-anchor="middle" font-size="12" font-family="sans-serif" font-weight="bold" fill="currentColor" stroke="none">M</text></svg></div>
+                    <div class="rul-info">
+                      <div class="rul-name">ENG_002</div>
+                      <div class="rul-zone">Orbital Assembly</div>
                     </div>
-                    <div class="rlu-bar-wrap">
-                      <div class="rlu-bar-bg">
-                        <div class="rlu-bar-fill" style="width:22%;background:var(--orange)"></div>
+                    <div class="rul-bar-wrap">
+                      <div class="rul-bar-bg">
+                        <div class="rul-bar-fill" style="width:22 cycles;background:var(--orange)"></div>
                       </div>
                     </div>
-                    <div class="rlu-pct" style="color:var(--orange)">22%</div>
+                    <div class="rul-pct" style="color:var(--orange)">22 cycles</div>
                   </div>
-                  <div class="rlu-item" onclick="window.location.href='machine-details.html'">
-                    <div class="rlu-rank">04</div>
-                    <div class="rlu-icon" style="background:var(--orange-dim);color:var(--orange);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><text x="12" y="16" text-anchor="middle" font-size="12" font-family="sans-serif" font-weight="bold" fill="currentColor" stroke="none">M</text></svg></div>
-                    <div class="rlu-info">
-                      <div class="rlu-name">DR-MOTOR-11</div>
-                      <div class="rlu-zone">Zone 4 · Drying</div>
+                  <div class="rul-item" onclick="window.location.href='machine-details.html'">
+                    <div class="rul-rank">04</div>
+                    <div class="rul-icon" style="background:var(--orange-dim);color:var(--orange);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><text x="12" y="16" text-anchor="middle" font-size="12" font-family="sans-serif" font-weight="bold" fill="currentColor" stroke="none">M</text></svg></div>
+                    <div class="rul-info">
+                      <div class="rul-name">ENG_011</div>
+                      <div class="rul-zone">Launch Complex 39A</div>
                     </div>
-                    <div class="rlu-bar-wrap">
-                      <div class="rlu-bar-bg">
-                        <div class="rlu-bar-fill" style="width:31%;background:var(--orange)"></div>
+                    <div class="rul-bar-wrap">
+                      <div class="rul-bar-bg">
+                        <div class="rul-bar-fill" style="width:31 cycles;background:var(--orange)"></div>
                       </div>
                     </div>
-                    <div class="rlu-pct" style="color:var(--orange)">31%</div>
+                    <div class="rul-pct" style="color:var(--orange)">31 cycles</div>
                   </div>
                 </div>
               </div>
@@ -402,24 +402,24 @@
                 <div class="alert-item" onclick="window.location.href='alerts.html'">
                   <div class="alert-dot" style="background:var(--red)"></div>
                   <div class="alert-content">
-                    <div class="alert-title">FL-PUMP-03 — Critical temperature spike</div>
-                    <div class="alert-meta">Zone 3 · Filtration · 142°C</div>
+                    <div class="alert-title">ENG_003 — Critical Sensor 2 spike</div>
+                    <div class="alert-meta">Test Facility Alpha · 142 units</div>
                   </div>
                   <div class="alert-time">00:42</div>
                 </div>
                 <div class="alert-item" onclick="window.location.href='alerts.html'">
                   <div class="alert-dot" style="background:var(--red)"></div>
                   <div class="alert-content">
-                    <div class="alert-title">CR-PUMP-07 — RLU below 15%</div>
-                    <div class="alert-meta">Zone 1 · Immediate action</div>
+                    <div class="alert-title">ENG_007 — RUL below 15 cycles</div>
+                    <div class="alert-meta">Facility B · Immediate action</div>
                   </div>
                   <div class="alert-time">01:15</div>
                 </div>
                 <div class="alert-item" onclick="window.location.href='alerts.html'">
                   <div class="alert-dot" style="background:var(--orange)"></div>
                   <div class="alert-content">
-                    <div class="alert-title">FT-MOTOR-02 — Vibration anomaly</div>
-                    <div class="alert-meta">Zone 2 · 8.4mm/s</div>
+                    <div class="alert-title">ENG_002 — Sensor 15 anomaly</div>
+                    <div class="alert-meta">Facility C · 8.4 units</div>
                   </div>
                   <div class="alert-time">02:30</div>
                 </div>

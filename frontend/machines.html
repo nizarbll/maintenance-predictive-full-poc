@@ -85,22 +85,22 @@
               <div class="notif-item" onclick="window.location.href='machine-details.html'">
                 <div class="notif-icon" style="background:var(--red-dim);color:var(--red)">!</div>
                 <div class="notif-content">
-                  <div class="notif-title">FL-PUMP-03: Critical Temp Spike (142°C)</div>
-                  <div class="notif-meta">Zone 3 · Immediate Maintenance</div>
+                  <div class="notif-title">ENG_003: Critical Temp Spike (142 units)</div>
+                  <div class="notif-meta">Facility A · Immediate Maintenance</div>
                 </div>
               </div>
               <div class="notif-item" onclick="window.location.href='machine-details.html'">
                 <div class="notif-icon" style="background:var(--red-dim);color:var(--red)">!</div>
                 <div class="notif-content">
-                  <div class="notif-title">CR-PUMP-07: RLU strictly below 15%</div>
-                  <div class="notif-meta">Zone 1 · Imminent Failure Risk</div>
+                  <div class="notif-title">ENG_007: RUL strictly below 15 cycles</div>
+                  <div class="notif-meta">Facility B · Imminent Failure Risk</div>
                 </div>
               </div>
               <div class="notif-item" onclick="window.location.href='machine-details.html'">
                 <div class="notif-icon" style="background:var(--orange-dim);color:var(--orange)">!</div>
                 <div class="notif-content">
-                  <div class="notif-title">FT-MOTOR-02: Abnormal Vibration</div>
-                  <div class="notif-meta">Zone 2 · Needs Inspection</div>
+                  <div class="notif-title">ENG_002: Abnormal Sensor 15</div>
+                  <div class="notif-meta">Facility C · Needs Inspection</div>
                 </div>
               </div>
             </div>
@@ -127,7 +127,7 @@
               <div class="dl-item" onclick="downloadFile('pdf', 'ml_predictions_report.pdf')">
                 <svg class="dl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15v-6"/><path d="M12 15v-4"/><path d="M15 15v-2"/></svg>
                 <div class="dl-info">
-                  <div class="dl-title">ML Predictions & RLU Report</div>
+                  <div class="dl-title">ML Predictions & RUL Report</div>
                   <div class="dl-desc">PDF format · AI analysis</div>
                 </div>
               </div>
@@ -205,10 +205,10 @@
           <div class="filter-group">
             <select class="filter-select" id="zoneFilter" onchange="filterMachines()">
               <option value="">All Zones</option>
-              <option value="Zone 1">Zone 1 · Crushing</option>
-              <option value="Zone 2">Zone 2 · Flotation</option>
-              <option value="Zone 3">Zone 3 · Filtration</option>
-              <option value="Zone 4">Zone 4 · Drying</option>
+              <option value="Facility B">Test Facility Beta</option>
+              <option value="Facility C">Orbital Assembly</option>
+              <option value="Facility A">Test Facility Alpha</option>
+              <option value="Zone 4">Launch Complex 39A</option>
             </select>
             <select class="filter-select" id="statusFilter" onchange="filterMachines()">
               <option value="">All Statuses</option>
@@ -225,7 +225,7 @@
                 <th>Machine ID</th>
                 <th>Zone / Location</th>
                 <th>Status</th>
-                <th>Remaining Useful Life (RLU)</th>
+                <th>Remaining Useful Life (RUL)</th>
                 <th>Last Inspected</th>
                 <th>Action</th>
               </tr>
@@ -235,17 +235,17 @@
                 <td>
                   <div class="machine-id">
                     <div>
-                      <div class="machine-name">FL-PUMP-03</div>
-                      <div class="machine-type">Centrifugal Pump</div>
+                      <div class="machine-name">ENG_003</div>
+                      <div class="machine-type">Turbofan Engine A</div>
                     </div>
                   </div>
                 </td>
-                <td>Zone 3 · Filtration</td>
+                <td>Test Facility Alpha</td>
                 <td><span class="status-badge status-critical">Critical</span></td>
                 <td>
-                  <div class="rlu-cell">
-                    <div class="rlu-bar-wrap"><div class="rlu-bar-fill" style="width:8%;background:var(--red)"></div></div>
-                    <span class="rlu-pct" style="color:var(--red)">8%</span>
+                  <div class="rul-cell">
+                    <div class="rul-bar-wrap"><div class="rul-bar-fill" style="width:8 cycles;background:var(--red)"></div></div>
+                    <span class="rul-pct" style="color:var(--red)">8 cycles</span>
                   </div>
                 </td>
                 <td>Today, 00:42</td>
@@ -255,17 +255,17 @@
                 <td>
                   <div class="machine-id">
                     <div>
-                      <div class="machine-name">CR-PUMP-07</div>
-                      <div class="machine-type">Slurry Pump</div>
+                      <div class="machine-name">ENG_007</div>
+                      <div class="machine-type">Slurry Engine</div>
                     </div>
                   </div>
                 </td>
-                <td>Zone 1 · Crushing</td>
+                <td>Test Facility Beta</td>
                 <td><span class="status-badge status-critical">Critical</span></td>
                 <td>
-                  <div class="rlu-cell">
-                    <div class="rlu-bar-wrap"><div class="rlu-bar-fill" style="width:15%;background:var(--red)"></div></div>
-                    <span class="rlu-pct" style="color:var(--red)">15%</span>
+                  <div class="rul-cell">
+                    <div class="rul-bar-wrap"><div class="rul-bar-fill" style="width:15 cycles;background:var(--red)"></div></div>
+                    <span class="rul-pct" style="color:var(--red)">15 cycles</span>
                   </div>
                 </td>
                 <td>Today, 01:15</td>
@@ -275,17 +275,17 @@
                 <td>
                   <div class="machine-id">
                     <div>
-                      <div class="machine-name">FT-MOTOR-02</div>
-                      <div class="machine-type">Synchronous Motor</div>
+                      <div class="machine-name">ENG_002</div>
+                      <div class="machine-type">Synchronous Engine</div>
                     </div>
                   </div>
                 </td>
-                <td>Zone 2 · Flotation</td>
+                <td>Orbital Assembly</td>
                 <td><span class="status-badge status-warning">Warning</span></td>
                 <td>
-                  <div class="rlu-cell">
-                    <div class="rlu-bar-wrap"><div class="rlu-bar-fill" style="width:22%;background:var(--orange)"></div></div>
-                    <span class="rlu-pct" style="color:var(--orange)">22%</span>
+                  <div class="rul-cell">
+                    <div class="rul-bar-wrap"><div class="rul-bar-fill" style="width:22 cycles;background:var(--orange)"></div></div>
+                    <span class="rul-pct" style="color:var(--orange)">22 cycles</span>
                   </div>
                 </td>
                 <td>Yesterday, 14:30</td>
@@ -295,17 +295,17 @@
                 <td>
                   <div class="machine-id">
                     <div>
-                      <div class="machine-name">DR-MOTOR-11</div>
-                      <div class="machine-type">Induction Motor</div>
+                      <div class="machine-name">ENG_011</div>
+                      <div class="machine-type">Turbofan Engine B</div>
                     </div>
                   </div>
                 </td>
-                <td>Zone 4 · Drying</td>
+                <td>Launch Complex 39A</td>
                 <td><span class="status-badge status-warning">Warning</span></td>
                 <td>
-                  <div class="rlu-cell">
-                    <div class="rlu-bar-wrap"><div class="rlu-bar-fill" style="width:31%;background:var(--orange)"></div></div>
-                    <span class="rlu-pct" style="color:var(--orange)">31%</span>
+                  <div class="rul-cell">
+                    <div class="rul-bar-wrap"><div class="rul-bar-fill" style="width:31 cycles;background:var(--orange)"></div></div>
+                    <span class="rul-pct" style="color:var(--orange)">31 cycles</span>
                   </div>
                 </td>
                 <td>Yesterday, 09:00</td>
@@ -315,17 +315,17 @@
                 <td>
                   <div class="machine-id">
                     <div>
-                      <div class="machine-name">FL-PUMP-01</div>
-                      <div class="machine-type">Centrifugal Pump</div>
+                      <div class="machine-name">ENG_001</div>
+                      <div class="machine-type">Turbofan Engine A</div>
                     </div>
                   </div>
                 </td>
-                <td>Zone 3 · Filtration</td>
+                <td>Test Facility Alpha</td>
                 <td><span class="status-badge status-healthy">Healthy</span></td>
                 <td>
-                  <div class="rlu-cell">
-                    <div class="rlu-bar-wrap"><div class="rlu-bar-fill" style="width:85%;background:var(--ocp-green)"></div></div>
-                    <span class="rlu-pct" style="color:var(--ocp-green)">85%</span>
+                  <div class="rul-cell">
+                    <div class="rul-bar-wrap"><div class="rul-bar-fill" style="width:85 cycles;background:var(--ocp-green)"></div></div>
+                    <span class="rul-pct" style="color:var(--ocp-green)">85 cycles</span>
                   </div>
                 </td>
                 <td>Oct 12, 10:00</td>
@@ -335,17 +335,17 @@
                 <td>
                   <div class="machine-id">
                     <div>
-                      <div class="machine-name">CR-PUMP-02</div>
-                      <div class="machine-type">Slurry Pump</div>
+                      <div class="machine-name">ENG_002</div>
+                      <div class="machine-type">Slurry Engine</div>
                     </div>
                   </div>
                 </td>
-                <td>Zone 1 · Crushing</td>
+                <td>Test Facility Beta</td>
                 <td><span class="status-badge status-healthy">Healthy</span></td>
                 <td>
-                  <div class="rlu-cell">
-                    <div class="rlu-bar-wrap"><div class="rlu-bar-fill" style="width:92%;background:var(--ocp-green)"></div></div>
-                    <span class="rlu-pct" style="color:var(--ocp-green)">92%</span>
+                  <div class="rul-cell">
+                    <div class="rul-bar-wrap"><div class="rul-bar-fill" style="width:92 cycles;background:var(--ocp-green)"></div></div>
+                    <span class="rul-pct" style="color:var(--ocp-green)">92 cycles</span>
                   </div>
                 </td>
                 <td>Oct 10, 08:00</td>
@@ -377,15 +377,15 @@
         <div class="form-grid">
           <div class="form-field">
             <label for="rm_id">Machine ID</label>
-            <input id="rm_id" name="id" placeholder="FL-PUMP-09" required />
+            <input id="rm_id" name="id" placeholder="ENG_009" required />
           </div>
           <div class="form-field">
             <label for="rm_type">Machine Type</label>
-            <input id="rm_type" name="type" placeholder="Centrifugal Pump" />
+            <input id="rm_type" name="type" placeholder="Turbofan Engine A" />
           </div>
           <div class="form-field">
             <label for="rm_zone">Zone / Location</label>
-            <input id="rm_zone" name="zone" placeholder="Zone 2 · Flotation" required />
+            <input id="rm_zone" name="zone" placeholder="Orbital Assembly" required />
           </div>
           <div class="form-field">
             <label for="rm_status">Status</label>
@@ -396,8 +396,8 @@
             </select>
           </div>
           <div class="form-field">
-            <label for="rm_rlu">RLU (%)</label>
-            <input id="rm_rlu" name="rlu" type="number" min="0" max="100" value="100" required />
+            <label for="rm_rul">RUL (Cycles)</label>
+            <input id="rm_rul" name="rul" type="number" min="0" max="100" value="100" required />
           </div>
           <div class="form-field">
             <label for="rm_last">Last Inspected</label>

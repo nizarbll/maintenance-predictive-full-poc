@@ -110,22 +110,22 @@
               <div class="notif-item" onclick="window.location.href='machine-details.html'">
                 <div class="notif-icon" style="background:var(--red-dim);color:var(--red)">⚠️</div>
                 <div class="notif-content">
-                  <div class="notif-title">FL-PUMP-03: Critical Temp Spike (142°C)</div>
-                  <div class="notif-meta">Zone 3 · Immediate Maintenance</div>
+                  <div class="notif-title">ENG_003: Critical Temp Spike (142 units)</div>
+                  <div class="notif-meta">Facility A · Immediate Maintenance</div>
                 </div>
               </div>
               <div class="notif-item" onclick="window.location.href='machine-details.html'">
                 <div class="notif-icon" style="background:var(--red-dim);color:var(--red)">⚠️</div>
                 <div class="notif-content">
-                  <div class="notif-title">CR-PUMP-07: RLU strictly below 15%</div>
-                  <div class="notif-meta">Zone 1 · Imminent Failure Risk</div>
+                  <div class="notif-title">ENG_007: RUL strictly below 15 cycles</div>
+                  <div class="notif-meta">Facility B · Imminent Failure Risk</div>
                 </div>
               </div>
               <div class="notif-item" onclick="window.location.href='machine-details.html'">
                 <div class="notif-icon" style="background:var(--orange-dim);color:var(--orange)">⚙️</div>
                 <div class="notif-content">
-                  <div class="notif-title">FT-MOTOR-02: Abnormal Vibration</div>
-                  <div class="notif-meta">Zone 2 · Needs Inspection</div>
+                  <div class="notif-title">ENG_002: Abnormal Sensor 15</div>
+                  <div class="notif-meta">Facility C · Needs Inspection</div>
                 </div>
               </div>
             </div>
@@ -152,7 +152,7 @@
               <div class="dl-item" onclick="downloadFile('pdf', 'ml_predictions_report.pdf')">
                 <svg class="dl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15v-6"/><path d="M12 15v-4"/><path d="M15 15v-2"/></svg>
                 <div class="dl-info">
-                  <div class="dl-title">ML Predictions & RLU Report</div>
+                  <div class="dl-title">ML Predictions & RUL Report</div>
                   <div class="dl-desc">PDF format · AI analysis</div>
                 </div>
               </div>
@@ -198,21 +198,21 @@
     <tbody>
       <tr style="border-bottom:1px solid var(--border);">
         <td style="padding:16px 20px;"><span class="status-badge status-critical">Critical</span></td>
-        <td style="padding:16px 20px;font-weight:600;">FL-PUMP-03</td>
-        <td style="padding:16px 20px;font-size:13px;">Temperature spike (142°C) detected in main bearing.</td>
+        <td style="padding:16px 20px;font-weight:600;">ENG_003</td>
+        <td style="padding:16px 20px;font-size:13px;">Sensor 14 spike (142 units) detected in main bearing.</td>
         <td style="padding:16px 20px;font-family:'JetBrains Mono';font-size:12px;color:var(--text-muted)">Just now</td>
         <td style="padding:16px 20px;"><button class="action-btn" onclick="window.location.href='machine-details.html'">View Details</button></td>
       </tr>
       <tr style="border-bottom:1px solid var(--border);">
         <td style="padding:16px 20px;"><span class="status-badge status-critical">Critical</span></td>
-        <td style="padding:16px 20px;font-weight:600;">CR-PUMP-07</td>
-        <td style="padding:16px 20px;font-size:13px;">Remaining Useful Life (RLU) has dropped below 15%.</td>
+        <td style="padding:16px 20px;font-weight:600;">ENG_007</td>
+        <td style="padding:16px 20px;font-size:13px;">Remaining Useful Life (RUL) has dropped below 15 cycles.</td>
         <td style="padding:16px 20px;font-family:'JetBrains Mono';font-size:12px;color:var(--text-muted)">2m ago</td>
         <td style="padding:16px 20px;"><button class="action-btn" onclick="window.location.href='machine-details.html'">View Details</button></td>
       </tr>
       <tr>
         <td style="padding:16px 20px;"><span class="status-badge status-warning">Warning</span></td>
-        <td style="padding:16px 20px;font-weight:600;">FT-MOTOR-02</td>
+        <td style="padding:16px 20px;font-weight:600;">ENG_002</td>
         <td style="padding:16px 20px;font-size:13px;">Abnormal high-frequency vibration detected.</td>
         <td style="padding:16px 20px;font-family:'JetBrains Mono';font-size:12px;color:var(--text-muted)">15m ago</td>
         <td style="padding:16px 20px;"><button class="action-btn" onclick="window.location.href='machine-details.html'">View Details</button></td>

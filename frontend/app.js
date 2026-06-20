@@ -12,7 +12,7 @@ window.addEventListener('load', () => {
       initMap();
     }
 
-    if (document.getElementById('rluDoughnut') && document.getElementById('sensorChart')) {
+    if (document.getElementById('rulDoughnut') && document.getElementById('sensorChart')) {
       initCharts();
       animateBars();
     }
@@ -23,11 +23,11 @@ window.addEventListener('load', () => {
 // Zone data - UK phosphate mine (Jorf Lasfar)
 const zones = [
 
-  { id: 'zone1', name: 'Jorf Lasfar Slurry Transfer', lat: 33.098981, lng: -8.602664, status: 'healthy', machines: 12, active: 10, warning: 2, critical: 0, rlu: 78 },
-  { id: 'zone2', name: 'Jorf Lasfar Utility Pumping', lat: 33.099889  , lng: -8.596991, status: 'warning', machines: 8, active: 5, warning: 2, critical: 1, rlu: 45 },
-  { id: 'zone3', name: 'Industrial Water Distribution', lat: 33.101489, lng: -8.600248  , status: 'critical', machines: 10, active: 4, warning: 3, critical: 3, rlu: 12 },
-  { id: 'zone4', name: 'Desalination Pumping Unit', lat: 33.101633, lng: -8.605650, status: 'healthy', machines: 10, active: 9, warning: 1, critical: 0, rlu: 82 },
-  { id: 'zone5', name: 'Phosphate Slurry Line', lat: 33.098419, lng: -8.607341, status: 'warning', machines: 6, active: 4, warning: 2, critical: 0, rlu: 38 }
+  { id: 'zone1', name: 'Test Facility Alpha', lat: 28.5721, lng: -80.6480, status: 'healthy', machines: 12, active: 10, warning: 2, critical: 0, rul: 78 },
+  { id: 'zone2', name: 'Test Facility Beta', lat: 28.5731  , lng: -80.6490, status: 'warning', machines: 8, active: 5, warning: 2, critical: 1, rul: 45 },
+  { id: 'zone3', name: 'Orbital Assembly', lat: 28.5741, lng: -80.6500  , status: 'critical', machines: 10, active: 4, warning: 3, critical: 3, rul: 12 },
+  { id: 'zone4', name: 'Launch Complex 39A', lat: 28.6082, lng: -80.6041, status: 'healthy', machines: 10, active: 9, warning: 1, critical: 0, rul: 82 },
+  { id: 'zone5', name: 'Launch Complex 39B', lat: 28.6272, lng: -80.6208, status: 'warning', machines: 6, active: 4, warning: 2, critical: 0, rul: 38 }
 ];
 
 let map;
@@ -36,14 +36,14 @@ let markers = {};
 function initMap() {
   // Define factory bounds (the area we want to show)
   const factoryBounds = [
-    [33.098361, -8.610633], // Southwest
-    [33.101231, -8.594535]  // Northeast
+    [28.5200, -80.7000], // Southwest
+    [28.6500, -80.5500]  // Northeast
   ];
 
   if (typeof L === 'undefined') return; // Fail gracefully if Leaflet is not loaded
 
   map = L.map('map', {
-    center: [33.100058, -8.600097],
+    center: [28.5830, -80.6200],
     zoom: 17,
     zoomControl: true,
     minZoom: 15.1,
@@ -200,10 +200,10 @@ function initCharts() {
   Chart.defaults.font.family = "'JetBrains Mono', monospace";
   Chart.defaults.color = "#8E97A3";
 
-  // RLU Doughnut
-  const rluCanvas = document.getElementById('rluDoughnut');
-  if (rluCanvas) {
-    const ctxRlu = rluCanvas.getContext('2d');
+  // RUL Doughnut
+  const rulCanvas = document.getElementById('rulDoughnut');
+  if (rulCanvas) {
+    const ctxRlu = rulCanvas.getContext('2d');
     new Chart(ctxRlu, {
       type: 'doughnut',
       data: {
@@ -228,10 +228,10 @@ function initCharts() {
   if (sensorCanvas) {
     const ctxSensor = sensorCanvas.getContext('2d');
 
-    // Generate mock data (rising trend to simulate imminent failure)
-    const labels = Array.from({ length: 24 }, (_, i) => `${i}:00`);
-    const tempData = labels.map((_, i) => 100 + (i * 1.5) + Math.random() * 5);
-    const vibData = labels.map((_, i) => 4 + (i * 0.18) + Math.random() * 0.5);
+    // Generate mock data (daily cycles to simulate RUL degradation)
+    const labels = Array.from({ length: 30 }, (_, i) => `Cycle ${100 + i}`);
+    const s2Data = labels.map((_, i) => 641.5 + (i * 0.05) + Math.random() * 0.5);
+    const s3Data = labels.map((_, i) => 1585 - (i * 1.5) - Math.random() * 5);
 
     new Chart(ctxSensor, {
       type: 'line',
@@ -239,8 +239,8 @@ function initCharts() {
         labels: labels,
         datasets: [
           {
-            label: 'Pd (Pression bar)',
-            data: labels.map((_, i) => 12 + (i * 0.05) + Math.random() * 0.5),
+            label: 'Sensor 2 (LPC Outlet Temp)',
+            data: s2Data,
             borderColor: '#750d0d',
             backgroundColor: 'rgba(117, 13, 13, 0.05)',
             borderWidth: 2,
@@ -250,8 +250,8 @@ function initCharts() {
             yAxisID: 'y'
           },
           {
-            label: 'Q (Débit m3/h)',
-            data: labels.map((_, i) => 480 - (i * 1.5) - Math.random() * 10),
+            label: 'Sensor 3 (HPC Outlet Temp)',
+            data: s3Data,
             borderColor: '#8d3a03',
             borderWidth: 2,
             pointRadius: 0,
@@ -273,12 +273,12 @@ function initCharts() {
           y: {
             type: 'linear', display: true, position: 'left',
             grid: { color: 'rgba(0,0,0,0.04)' },
-            title: { display: true, text: 'Pression (bar)', font: { size: 10 } }
+            title: { display: true, text: 'LPC Temp (°R)', font: { size: 10 } }
           },
           y1: {
             type: 'linear', display: true, position: 'right',
             grid: { display: false },
-            title: { display: true, text: 'Débit (m3/h)', font: { size: 10 } }
+            title: { display: true, text: 'HPC Temp (°R)', font: { size: 10 } }
           }
         }
       }
@@ -310,9 +310,9 @@ window.downloadFile = function (type, filename) {
   let mimeType = 'text/plain';
 
   if (type === 'csv') {
-    content = 'Timestamp,Machine_ID,Temperature,Vibration,Pressure\n' +
-      new Date().toISOString() + ',FL-PUMP-03,142.5,8.2,12.1\n' +
-      new Date(Date.now() - 1000).toISOString() + ',FL-PUMP-03,141.8,7.9,11.9';
+    content = 'Timestamp,Machine_ID,Sensor 14,Sensor 15,Sensor 21\n' +
+      new Date().toISOString() + ',ENG_003,642.5,8.2,12.1\n' +
+      new Date(Date.now() - 1000).toISOString() + ',ENG_003,641.8,7.9,11.9';
     mimeType = 'text/csv';
   } else if (type === 'pdf') {
     content = '%PDF-1.4\n%... [Simulated OCP Machine Report for ' + filename + '] ...';
@@ -395,7 +395,7 @@ function getRegisterMachineModalEls() {
     type: document.getElementById('rm_type'),
     zone: document.getElementById('rm_zone'),
     status: document.getElementById('rm_status'),
-    rlu: document.getElementById('rm_rlu'),
+    rul: document.getElementById('rm_rul'),
     last: document.getElementById('rm_last')
   };
 }
@@ -416,11 +416,11 @@ window.closeRegisterMachineModal = function() {
   overlay.classList.remove('show');
 };
 
-function addMachineRow({ machineId, machineType, zone, status, rluPct, lastInspected }) {
+function addMachineRow({ machineId, machineType, zone, status, rulPct, lastInspected }) {
   const tbody = document.querySelector('.machines-container table tbody');
   if (!tbody) return;
 
-  const pctNum = Math.max(0, Math.min(100, Number(rluPct)));
+  const pctNum = Math.max(0, Math.min(100, Number(rulPct)));
   const badgeClass =
     String(status).toLowerCase().includes('crit') ? 'status-critical' :
     String(status).toLowerCase().includes('warn') ? 'status-warning' :
@@ -445,9 +445,9 @@ function addMachineRow({ machineId, machineType, zone, status, rluPct, lastInspe
     <td>${zone}</td>
     <td><span class="status-badge ${badgeClass}">${status}</span></td>
     <td>
-      <div class="rlu-cell">
-        <div class="rlu-bar-wrap"><div class="rlu-bar-fill" style="width:${pctNum}%;background:${color}"></div></div>
-        <span class="rlu-pct" style="color:${color}">${isNaN(pctNum) ? '' : pctNum + '%'}</span>
+      <div class="rul-cell">
+        <div class="rul-bar-wrap"><div class="rul-bar-fill" style="width:${pctNum}%;background:${color}"></div></div>
+        <span class="rul-pct" style="color:${color}">${isNaN(pctNum) ? '' : pctNum + ' cycles'}</span>
       </div>
     </td>
     <td>${lastInspected || ''}</td>
@@ -488,7 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
       machineType: (els.type?.value || '').trim(),
       zone,
       status: els.status?.value || 'Healthy',
-      rluPct: els.rlu?.value ?? 100,
+      rulPct: els.rul?.value ?? 100,
       lastInspected: (els.last?.value || '').trim()
     });
 
@@ -633,10 +633,10 @@ window.openWorkOrderModal = function(reset = false) {
     const machineIdInput = document.getElementById('wo_machine');
     const machineZoneInput = document.getElementById('wo_zone');
     if (machineIdInput && !machineIdInput.value) {
-      machineIdInput.value = 'FL-PUMP-03';
+      machineIdInput.value = 'ENG_003';
     }
     if (machineZoneInput && !machineZoneInput.value) {
-      machineZoneInput.value = 'Zone 3 (Filtration)';
+      machineZoneInput.value = 'Facility A (Filtration)';
     }
   }
 };

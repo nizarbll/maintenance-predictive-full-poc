@@ -110,22 +110,22 @@
               <div class="notif-item" onclick="window.location.href='machine-details.html'">
                 <div class="notif-icon" style="background:var(--red-dim);color:var(--red)">⚠️</div>
                 <div class="notif-content">
-                  <div class="notif-title">FL-PUMP-03: Critical Temp Spike (142°C)</div>
-                  <div class="notif-meta">Zone 3 · Immediate Maintenance</div>
+                  <div class="notif-title">ENG_003: Critical Temp Spike (142 units)</div>
+                  <div class="notif-meta">Facility A · Immediate Maintenance</div>
                 </div>
               </div>
               <div class="notif-item" onclick="window.location.href='machine-details.html'">
                 <div class="notif-icon" style="background:var(--red-dim);color:var(--red)">⚠️</div>
                 <div class="notif-content">
-                  <div class="notif-title">CR-PUMP-07: RLU strictly below 15%</div>
-                  <div class="notif-meta">Zone 1 · Imminent Failure Risk</div>
+                  <div class="notif-title">ENG_007: RUL strictly below 15 cycles</div>
+                  <div class="notif-meta">Facility B · Imminent Failure Risk</div>
                 </div>
               </div>
               <div class="notif-item" onclick="window.location.href='machine-details.html'">
                 <div class="notif-icon" style="background:var(--orange-dim);color:var(--orange)">⚙️</div>
                 <div class="notif-content">
-                  <div class="notif-title">FT-MOTOR-02: Abnormal Vibration</div>
-                  <div class="notif-meta">Zone 2 · Needs Inspection</div>
+                  <div class="notif-title">ENG_002: Abnormal Sensor 15</div>
+                  <div class="notif-meta">Facility C · Needs Inspection</div>
                 </div>
               </div>
             </div>
@@ -152,7 +152,7 @@
               <div class="dl-item" onclick="downloadFile('pdf', 'ml_predictions_report.pdf')">
                 <svg class="dl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15v-6"/><path d="M12 15v-4"/><path d="M15 15v-2"/></svg>
                 <div class="dl-info">
-                  <div class="dl-title">ML Predictions & RLU Report</div>
+                  <div class="dl-title">ML Predictions & RUL Report</div>
                   <div class="dl-desc">PDF format · AI analysis</div>
                 </div>
               </div>
@@ -188,18 +188,18 @@
     </div>
   </div>
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);">
-    <h3 style="font-family:'Syne';font-size:16px;font-weight:700;margin-bottom:16px;">Average RLU by Zone</h3>
+    <h3 style="font-family:'Syne';font-size:16px;font-weight:700;margin-bottom:16px;">Average RUL by Zone</h3>
     <div style="display:flex;flex-direction:column;gap:12px;">
       <div>
-        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span>Zone 1 - Crushing</span><span>78%</span></div>
-        <div style="height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;"><div style="height:100%;width:78%;background:var(--ocp-green);"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span>Facility B - Crushing</span><span>78 cycles</span></div>
+        <div style="height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;"><div style="height:100%;width:78 cycles;background:var(--ocp-green);"></div></div>
       </div>
       <div>
-        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span>Zone 2 - Flotation</span><span>45%</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span>Facility C - Flotation</span><span>45%</span></div>
         <div style="height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;"><div style="height:100%;width:45%;background:var(--orange);"></div></div>
       </div>
       <div>
-        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span>Zone 3 - Filtration</span><span>12%</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span>Facility A - Filtration</span><span>12%</span></div>
         <div style="height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;"><div style="height:100%;width:12%;background:var(--red);"></div></div>
       </div>
     </div>

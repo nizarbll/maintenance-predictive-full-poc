@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import pandas as pd
 import numpy as np
 from sqlalchemy import create_engine, text
+# pyrefly: ignore [missing-import]
 from confluent_kafka import Consumer, KafkaError
 from dataops.config import KAFKA_CFG, PATHS, FEAST_CFG, resolve_path
 from dataops.logger import processing_logger
@@ -57,12 +58,16 @@ CLIP_LIMIT = 125
 WINDOW_SIZE = 5
 
 def add_rul(df):
-    # RUL calculation
-    grouped = df.groupby("unit_number")
-    max_cycles = grouped["cycle"].max()
-    df = df.merge(max_cycles.to_frame("max_cycle"), left_on="unit_number", right_index=True)
-    df["RUL"] = df["max_cycle"] - df["cycle"]
-    df.drop(columns=["max_cycle"], inplace=True)
+    # RUL is now provided directly in the stream (pre-calculated by generate_data.py)
+    # Just calculate the RUL_TARGET by clipping it
+    if "RUL" not in df.columns:
+        processing_logger.warning("RUL column missing from stream! Using fallback calculation (batch max).")
+        grouped = df.groupby("unit_number")
+        max_cycles = grouped["cycle"].max()
+        df = df.merge(max_cycles.to_frame("max_cycle"), left_on="unit_number", right_index=True)
+        df["RUL"] = df["max_cycle"] - df["cycle"]
+        df.drop(columns=["max_cycle"], inplace=True)
+        
     df["RUL_TARGET"] = df["RUL"].clip(upper=CLIP_LIMIT)
     return df
 
