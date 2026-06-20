@@ -87,4 +87,4 @@ En complément de l'interface Streamlit, le dossier `frontend/` contient une app
 
 * Le front-end statique dans `frontend/` est destiné à la supervision et à la présentation visuelle. Il peut être servi via un simple serveur HTTP ou intégré dans une progression future du pipeline.
 * Le tableau de bord principal reste `dashboard/app.py` pour l'exécution Streamlit et la visualisation des modèles en direct.
-
+* Link to the presentation .mp4 is [https://drive.google.com/file/d/15jFwUOr72tjmu-uh03zoma3ge_Rwwqe5/view?usp=drive_link](here)
