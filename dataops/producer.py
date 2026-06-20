@@ -3,7 +3,6 @@ import time
 import os
 import pandas as pd
 from pathlib import Path
-# pyrefly: ignore [missing-import]
 from confluent_kafka import Producer
 from dataops.config import KAFKA_CFG, resolve_path, PATHS
 from dataops.logger import ingestion_logger
@@ -59,7 +58,6 @@ def main():
             message = {
                 'unit_number': int(row["unit_number"]),
                 'cycle': int(row["cycle"]),
-                'RUL': int(row["RUL"]),
                 'op_setting_1': float(row["op_setting_1"]),
                 'op_setting_2': float(row["op_setting_2"]),
                 'op_setting_3': float(row["op_setting_3"]),
