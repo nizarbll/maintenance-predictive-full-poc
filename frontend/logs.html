@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TwinSense AI — Historical Logs</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">
+    <div class="loader-logo-hex"></div>
+    <div class="loader-name">TwinSense<span>AI</span></div>
+  </div>
+  <div class="loader-sub">Loading Machinery Database</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- SIDEBAR -->
+      <nav class="sidebar">
+      <div class="sidebar-logo" onclick="window.location.href='index.html'"></div>
+      <div class="sidebar-nav">
+        <div class="snav-item " onclick="window.location.href='index.html'" title="Factory Map">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="3" width="7" height="7" rx="1.5" />
+            <rect x="14" y="3" width="7" height="7" rx="1.5" />
+            <rect x="3" y="14" width="7" height="7" rx="1.5" />
+            <rect x="14" y="14" width="7" height="7" rx="1.5" />
+          </svg>
+        </div>
+        <div class="snav-item " onclick="window.location.href='machines.html'" title="All Machines">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+          </svg>
+        </div>
+        <div class="snav-item " onclick="window.location.href='technicians.html'" title="Technicians">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+        </div>
+        <div class="snav-item " onclick="window.location.href='alerts.html'" title="Alerts" style="position:relative">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+          <div class="snav-badge"></div>
+        </div>
+        <div class="snav-item " onclick="window.location.href='analytics.html'" title="Analytics">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <line x1="18" y1="20" x2="18" y2="10" />
+            <line x1="12" y1="20" x2="12" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="14" />
+          </svg>
+        </div>
+        <div class="snav-item active" onclick="window.location.href='logs.html'" title="Historical Logs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14,2 14,8 20,8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+            <line x1="10" y1="9" x2="8" y2="9" />
+          </svg>
+        </div>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="snav-item " onclick="window.location.href='settings.html'" title="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+        </div>
+        <div class="sidebar-avatar">AH</div>
+      </div>
+    </nav>
+
+  <!-- MAIN -->
+  <div class="main">
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-brand">TwinSense<span>AI</span></div>
+      <div class="topbar-breadcrumb"><span class="cur">Historical Logs</span></div>
+      <div class="topbar-spacer"></div>
+      <div class="topbar-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input placeholder="Search machines…" />
+      </div>
+      <div class="topbar-actions">
+        <!-- Notifications Dropdown -->
+        <div class="dropdown-wrapper">
+          <div class="topbar-btn" onclick="toggleDropdown('notifDropdown')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <div class="topbar-notif-dot"></div>
+          </div>
+          <div class="dropdown-menu" id="notifDropdown">
+            <div class="dropdown-header">
+              <span>Critical Alerts</span>
+              <span class="dropdown-badge">3 Actions Required</span>
+            </div>
+            <div class="dropdown-body">
+              <div class="notif-item" onclick="window.location.href='machine-details.html'">
+                <div class="notif-icon" style="background:var(--red-dim);color:var(--red)">⚠️</div>
+                <div class="notif-content">
+                  <div class="notif-title">ENG_003: Critical Temp Spike (142 units)</div>
+                  <div class="notif-meta">Facility A · Immediate Maintenance</div>
+                </div>
+              </div>
+              <div class="notif-item" onclick="window.location.href='machine-details.html'">
+                <div class="notif-icon" style="background:var(--red-dim);color:var(--red)">⚠️</div>
+                <div class="notif-content">
+                  <div class="notif-title">ENG_007: RUL strictly below 15 cycles</div>
+                  <div class="notif-meta">Facility B · Imminent Failure Risk</div>
+                </div>
+              </div>
+              <div class="notif-item" onclick="window.location.href='machine-details.html'">
+                <div class="notif-icon" style="background:var(--orange-dim);color:var(--orange)">⚙️</div>
+                <div class="notif-content">
+                  <div class="notif-title">ENG_002: Abnormal Sensor 15</div>
+                  <div class="notif-meta">Facility C · Needs Inspection</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Dropdown -->
+        <div class="dropdown-wrapper">
+          <div class="topbar-btn" onclick="toggleDropdown('downloadDropdown')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <div class="dropdown-menu" id="downloadDropdown">
+            <div class="dropdown-header">
+              <span>Download Machine Data</span>
+            </div>
+            <div class="dropdown-body">
+              <div class="dl-item" onclick="downloadFile('csv', 'telemetry_report.csv')">
+                <svg class="dl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <div class="dl-info">
+                  <div class="dl-title">Sensor Telemetry Log</div>
+                  <div class="dl-desc">CSV format · Last 30 days</div>
+                </div>
+              </div>
+              <div class="dl-item" onclick="downloadFile('pdf', 'ml_predictions_report.pdf')">
+                <svg class="dl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15v-6"/><path d="M12 15v-4"/><path d="M15 15v-2"/></svg>
+                <div class="dl-info">
+                  <div class="dl-title">ML Predictions & RUL Report</div>
+                  <div class="dl-desc">PDF format · AI analysis</div>
+                </div>
+              </div>
+              <div class="dl-item" onclick="downloadFile('xlsx', 'maintenance_history.xlsx')">
+                <svg class="dl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <div class="dl-info">
+                  <div class="dl-title">Maintenance History</div>
+                  <div class="dl-desc">XLSX format · Full audit trail</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PAGE -->
+    <div class="page">
+
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Historical Logs</h1>
+          <div class="page-subtitle">System audit trail and historical events</div>
+        </div>
+      </div>
+      
+      
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:20px;">
+  <div class="table-header" style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--surface-2)">
+    <div class="filter-group" style="display:flex;gap:12px;">
+      <input type="date" class="filter-select" />
+      <select class="filter-select"><option>All Event Types</option><option>Maintenance</option><option>System</option></select>
+    </div>
+    <button class="btn-outline" style="padding:6px 12px;font-size:12px;">Export CSV</button>
+  </div>
+  <table style="width:100%;border-collapse:collapse;text-align:left;font-size:13px;">
+    <tbody>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:12px 20px;font-family:'JetBrains Mono';color:var(--text-muted);width:160px;">2026-04-30 08:42:11</td>
+        <td style="padding:12px 20px;font-weight:600;width:120px;">SYSTEM</td>
+        <td style="padding:12px 20px;">Automated ML model #4 retraining completed successfully.</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:12px 20px;font-family:'JetBrains Mono';color:var(--text-muted);">2026-04-30 07:15:00</td>
+        <td style="padding:12px 20px;font-weight:600;">WORK_ORDER</td>
+        <td style="padding:12px 20px;">Technician Youssef B. assigned to ENG_002.</td>
+      </tr>
+      <tr>
+        <td style="padding:12px 20px;font-family:'JetBrains Mono';color:var(--text-muted);">2026-04-29 23:59:59</td>
+        <td style="padding:12px 20px;font-weight:600;">BACKUP</td>
+        <td style="padding:12px 20px;">Daily telemetry database backup to cold storage.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+    
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

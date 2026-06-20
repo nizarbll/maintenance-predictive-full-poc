@@ -1,0 +1,6 @@
+bootstrap_servers: "localhost:9092"
+topic: "sensor-data"
+group_id: "nasa-telemetry-ingest"
+batch_size: 200
+send_interval_sec: 0.1
+use_mock_fallback: true

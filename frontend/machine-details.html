@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TwinSense AI — Machine Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">
+    <div class="loader-logo-hex"></div>
+    <div class="loader-name">TwinSense<span>AI</span></div>
+  </div>
+  <div class="loader-sub">Loading Machine Telemetry</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- SIDEBAR -->
+    <nav class="sidebar">
+    <div class="sidebar-logo" onclick="window.location.href='index.html'"></div>
+    <div class="sidebar-nav">
+      <div class="snav-item " onclick="window.location.href='index.html'" title="Factory Map">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="3" y="3" width="7" height="7" rx="1.5" />
+          <rect x="14" y="3" width="7" height="7" rx="1.5" />
+          <rect x="3" y="14" width="7" height="7" rx="1.5" />
+          <rect x="14" y="14" width="7" height="7" rx="1.5" />
+        </svg>
+      </div>
+      <div class="snav-item active" onclick="window.location.href='machines.html'" title="All Machines">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+          <line x1="8" y1="21" x2="16" y2="21" />
+          <line x1="12" y1="17" x2="12" y2="21" />
+        </svg>
+      </div>
+      <div class="snav-item " onclick="window.location.href='technicians.html'" title="Technicians">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+      </div>
+      <div class="snav-item " onclick="window.location.href='alerts.html'" title="Alerts" style="position:relative">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+        </svg>
+        <div class="snav-badge"></div>
+      </div>
+      <div class="snav-item " onclick="window.location.href='analytics.html'" title="Analytics">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <line x1="18" y1="20" x2="18" y2="10" />
+          <line x1="12" y1="20" x2="12" y2="4" />
+          <line x1="6" y1="20" x2="6" y2="14" />
+        </svg>
+      </div>
+      <div class="snav-item " onclick="window.location.href='logs.html'" title="Historical Logs">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14,2 14,8 20,8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+          <line x1="10" y1="9" x2="8" y2="9" />
+        </svg>
+      </div>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="snav-item " onclick="window.location.href='settings.html'" title="Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+        </svg>
+      </div>
+      <div class="sidebar-avatar">AH</div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main">
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-brand">TwinSense<span>AI</span></div>
+      <div class="topbar-breadcrumb">
+        <a href="machines.html">Machinery Overview</a> 
+        <span style="color:var(--text-muted)">/</span> 
+        <span class="cur">ENG_003</span>
+      </div>
+      <div class="topbar-spacer"></div>
+      <div class="topbar-actions">
+        <!-- Notifications Dropdown -->
+        <div class="dropdown-wrapper">
+          <div class="topbar-btn" onclick="toggleDropdown('notifDropdown')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <div class="topbar-notif-dot"></div>
+          </div>
+          <div class="dropdown-menu" id="notifDropdown">
+            <div class="dropdown-header">
+              <span>Critical Alerts</span>
+              <span class="dropdown-badge">3 Actions Required</span>
+            </div>
+            <div class="dropdown-body">
+              <div class="notif-item" onclick="window.location.href='machine-details.html'">
+                <div class="notif-icon" style="background:var(--red-dim);color:var(--red)">⚠️</div>
+                <div class="notif-content">
+                  <div class="notif-title">ENG_003: Critical Temp Spike (142 units)</div>
+                  <div class="notif-meta">Facility A · Immediate Maintenance</div>
+                </div>
+              </div>
+              <div class="notif-item" onclick="window.location.href='machine-details.html'">
+                <div class="notif-icon" style="background:var(--red-dim);color:var(--red)">⚠️</div>
+                <div class="notif-content">
+                  <div class="notif-title">ENG_007: RUL strictly below 15 cycles</div>
+                  <div class="notif-meta">Facility B · Imminent Failure Risk</div>
+                </div>
+              </div>
+              <div class="notif-item" onclick="window.location.href='machine-details.html'">
+                <div class="notif-icon" style="background:var(--orange-dim);color:var(--orange)">⚙️</div>
+                <div class="notif-content">
+                  <div class="notif-title">ENG_002: Abnormal Sensor 15</div>
+                  <div class="notif-meta">Facility C · Needs Inspection</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Dropdown -->
+        <div class="dropdown-wrapper">
+          <div class="topbar-btn" onclick="toggleDropdown('downloadDropdown')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <div class="dropdown-menu" id="downloadDropdown">
+            <div class="dropdown-header">
+              <span>Download Machine Data</span>
+            </div>
+            <div class="dropdown-body">
+              <div class="dl-item" onclick="downloadFile('csv', 'telemetry_report.csv')">
+                <svg class="dl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <div class="dl-info">
+                  <div class="dl-title">Sensor Telemetry Log</div>
+                  <div class="dl-desc">CSV format · Last 30 days</div>
+                </div>
+              </div>
+              <div class="dl-item" onclick="downloadFile('pdf', 'ml_predictions_report.pdf')">
+                <svg class="dl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15v-6"/><path d="M12 15v-4"/><path d="M15 15v-2"/></svg>
+                <div class="dl-info">
+                  <div class="dl-title">ML Predictions & RUL Report</div>
+                  <div class="dl-desc">PDF format · AI analysis</div>
+                </div>
+              </div>
+              <div class="dl-item" onclick="downloadFile('xlsx', 'maintenance_history.xlsx')">
+                <svg class="dl-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <div class="dl-info">
+                  <div class="dl-title">Maintenance History</div>
+                  <div class="dl-desc">XLSX format · Full audit trail</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-primary" onclick="openWorkOrderModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          Create Work Order
+        </button>
+      </div>
+    </header>
+
+    <!-- PAGE -->
+    <div class="page">
+      <div class="page-header">
+        <div class="machine-header-info">
+          <div>
+            <h1 class="page-title">ENG_003</h1>
+            <div class="page-subtitle">
+              <span>Centrifugal Slurry Engine</span> · 
+              <span>Facility A (Filtration)</span> · 
+              <span class="status-badge status-critical">Critical Action Required</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live KPIs -->
+      <div class="kpi-row">
+        <div class="kpi-card" style="border-bottom: 4px solid var(--red)">
+          <div class="kpi-lbl">U (Tension)</div>
+          <div class="kpi-val" style="color:var(--red)">412 V</div>
+          <div class="kpi-trend trend-up">↑ +2% vs nom.</div>
+        </div>
+        <div class="kpi-card" style="border-bottom: 4px solid var(--orange)">
+          <div class="kpi-lbl">I (Courant)</div>
+          <div class="kpi-val" style="color:var(--orange)">680 A</div>
+          <div class="kpi-trend trend-up">↑ +8 cycles vs nom.</div>
+        </div>
+        <div class="kpi-card" style="border-bottom: 4px solid var(--ocp-green)">
+          <div class="kpi-lbl">Ps (Pr. Aspiration)</div>
+          <div class="kpi-val">1.8 bar</div>
+          <div class="kpi-trend trend-down">Stable</div>
+        </div>
+        <div class="kpi-card" style="border-bottom: 4px solid var(--ocp-green)">
+          <div class="kpi-lbl">Pd (Pr. Refoulement)</div>
+          <div class="kpi-val">12.4 bar</div>
+          <div class="kpi-trend trend-down">Stable</div>
+        </div>
+        <div class="kpi-card" style="border-bottom: 4px solid var(--red)">
+          <div class="kpi-lbl">Q (Débit)</div>
+          <div class="kpi-val" style="color:var(--red)">450 m³/h</div>
+          <div class="kpi-trend trend-down">↓ -15 cycles (Clogging)</div>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- LEFT COL: ML Models -->
+        <div class="column">
+          <!-- RUL Predictor -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                ML Model: RUL Predictor (Remaining Useful Life)
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="rul-container">
+                <div class="rul-chart-wrapper">
+                  <canvas id="rulDoughnut"></canvas>
+                  <div class="rul-chart-center">
+                    <div class="rul-pct">8 cycles</div>
+                    <div class="rul-lbl">RUL Left</div>
+                  </div>
+                </div>
+                <div class="rul-details">
+                  <div class="rul-stat">
+                    <span class="rul-stat-lbl">Estimated Time to Failure</span>
+                    <span class="rul-stat-val" style="color:var(--red)">~36 days</span>
+                  </div>
+                  <div class="rul-stat">
+                    <span class="rul-stat-lbl">Model Confidence</span>
+                    <span class="rul-stat-val">94.2%</span>
+                  </div>
+                  <div class="rul-stat">
+                    <span class="rul-stat-lbl">Primary Degradation Factor</span>
+                    <span class="rul-stat-val">Bearing Wear (Vib/Temp)</span>
+                  </div>
+                  <div class="rul-stat">
+                    <span class="rul-stat-lbl">Last Maintenance</span>
+                    <span class="rul-stat-val">214 days ago</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Defaillance Predictor -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                ML Model: Failure Probability Predictor
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="pred-item">
+                <div class="pred-header">
+                  <span>Probability of failure in next 24 hours</span>
+                  <span style="color:var(--orange)">65%</span>
+                </div>
+                <div class="pred-bar-bg"><div class="pred-bar-fill" style="width:0;background:var(--orange)" data-width="65%"></div></div>
+              </div>
+              <div class="pred-item">
+                <div class="pred-header">
+                  <span>Probability of failure in next 7 days</span>
+                  <span style="color:var(--red)">92 cycles</span>
+                </div>
+                <div class="pred-bar-bg"><div class="pred-bar-fill" style="width:0;background:var(--red)" data-width="92 cycles"></div></div>
+              </div>
+              <div class="pred-item">
+                <div class="pred-header">
+                  <span>Probability of failure in next 30 days</span>
+                  <span style="color:var(--red)">99%</span>
+                </div>
+                <div class="pred-bar-bg"><div class="pred-bar-fill" style="width:0;background:var(--red)" data-width="99%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COL: Sensors -->
+        <div class="column">
+          <!-- Sensor Graph -->
+          <div class="card" style="flex:1">
+            <div class="card-header">
+              <div class="card-title">
+                Live Sensor Telemetry
+              </div>
+              <select style="border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:12px;background:var(--bg)">
+                <option>Last 24 Hours</option>
+                <option>Last 7 Days</option>
+              </select>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="sensorChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create Work Order Modal -->
+<div class="modal-overlay" id="workOrderModal" role="dialog" aria-modal="true" aria-labelledby="workOrderTitle">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="workOrderTitle">Work order created</div>
+      <button class="modal-close" type="button" onclick="closeWorkOrderModal()" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <form id="workOrderForm">
+      <div class="modal-body">
+        <div class="form-grid" id="workOrderFields">
+          <div class="form-field">
+            <label for="wo_machine">Machine</label>
+            <input id="wo_machine" name="machine" readonly />
+          </div>
+          <div class="form-field">
+            <label for="wo_zone">Zone</label>
+            <input id="wo_zone" name="zone" readonly />
+          </div>
+          <div class="form-field">
+            <label for="wo_severity">Severity</label>
+            <select id="wo_severity" name="severity" required>
+              <option value="Critical">Critical</option>
+              <option value="Warning">Warning</option>
+              <option value="Normal">Normal</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="wo_due">Due</label>
+            <select id="wo_due" name="due" required>
+              <option value="Immediate">Immediate</option>
+              <option value="Today">Today</option>
+              <option value="This week">This week</option>
+            </select>
+          </div>
+          <div class="form-field" style="grid-column:1 / -1">
+            <label for="wo_title">Title</label>
+            <input id="wo_title" name="title" placeholder="e.g. Inspect bearing temperature spike" required />
+          </div>
+          <div class="form-field" style="grid-column:1 / -1">
+            <label for="wo_desc">Description</label>
+            <input id="wo_desc" name="desc" placeholder="Optional notes for the technician…" />
+          </div>
+        </div>
+
+        <div id="workOrderSuccess" style="display:none">
+          <div style="color:var(--text-muted);font-size:13px;line-height:1.5">
+            ID: <span id="workOrderSuccessId" style="font-family:'JetBrains Mono',monospace;color:var(--text-primary)"></span>
+            <span style="color:var(--text-muted)">·</span>
+            <span id="workOrderSuccessMeta"></span>
+          </div>
+          <div style="margin-top:12px;color:var(--text-muted);font-size:12px">
+            You can dispatch it now from the Technicians page, or create another one.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <div id="workOrderActionsCreate" style="display:flex;gap:10px;justify-content:flex-end;width:100%">
+          <button class="btn-ghost" type="button" onclick="closeWorkOrderModal()">Cancel</button>
+          <button class="btn-primary" type="submit">Create</button>
+        </div>
+
+        <div id="workOrderActionsSuccess" style="display:none;gap:10px;justify-content:flex-end;width:100%">
+          <button class="btn-ghost" type="button" onclick="openWorkOrderModal(true)">Create another</button>
+          <button class="btn-outline" type="button" onclick="window.location.href='technicians.html#work-orders'">Go to dispatch</button>
+          <button class="btn-primary" type="button" onclick="closeWorkOrderModal()">Close</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
